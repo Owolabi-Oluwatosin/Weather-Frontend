@@ -63,7 +63,7 @@ export const Weather = (props) => {
                 <Image boxSize="80px"
                     objectFit="cover"
                     object-position="fit"
-                    mt={16}
+                    mt={24}
                     src={WeatherIcons[weather?.weather[0].icon]} alt="clouds"
                 />
             </Stack>
