@@ -1,6 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import {
-  Container
+  Container,
+  VStack,
+  Badge,
+  Text
 } from '@chakra-ui/react';
 import { Line } from 'react-chartjs-2';
 import axiosIntance from "../helpers/axios";
@@ -15,23 +18,26 @@ export const History = (props) => {
   const [history, setUpdateHistory] = useState([]);
 
   const chart = async () => {
-    
+
     let temp = [];
     let humidity = [];
     let pressure = [];
+    let name = [];
     //getting history from our server
     const response = await axiosIntance.get(`/get-all-history`);
     if (response.status === 200) {
       const res = response.data.data;
       //looping through the data
-      for(const dataArr of res){
-        temp.push(parseInt(dataArr.temp))
-        humidity.push(parseInt(dataArr.humidity))
-        pressure.push(parseInt(dataArr.pressure))
+      for (const dataArr of res) {
+        temp.push(parseInt(dataArr.temp));
+        humidity.push(parseInt(dataArr.humidity));
+        pressure.push(parseInt(dataArr.pressure));
+        name.push(dataArr.name);
       }
-      
+
       //setting label to days of the week using their initial letter
-      const labels = "M, T, W, T, F, S, S";
+      // const labels = "M, T, W, T, F, S, S";
+      const labels = name;
 
       //updating our history cahrt
       setUpdateHistory({
@@ -66,7 +72,7 @@ export const History = (props) => {
       })
     }
   }
-  
+
   //calling useEffect to render our chart
   useEffect(() => {
     chart()
@@ -74,27 +80,9 @@ export const History = (props) => {
 
   return (
     <Container pt={8}>
-      <Line
-            data={history}
-            options={{
-              responsive: true,
-              scales: {
-                yAxes: [{
-                  ticks: {
-                    beginAtZero: true
-                  }
-                }]
-              },
-              legend: {
-                display: true,
-                position: "bottom"
-              }
-            }}
-            height={140}
-          />
-      {/* {
-        checking history exist or not
-        !history || !history.length ?
+      {
+        //checking history exist or not
+        !history ?
           <VStack >
             <Badge colorScheme="green" p="4" m="4" borderRadius="lg">
               <Text>History not available at the moment...</Text>
@@ -119,7 +107,7 @@ export const History = (props) => {
             }}
             height={140}
           />
-      } */}
+      }
 
     </Container>
   )

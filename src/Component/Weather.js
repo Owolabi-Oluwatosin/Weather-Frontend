@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useEffect} from 'react'
 import {
     Container,
     Center,
@@ -47,13 +47,19 @@ const WeatherInfoComponent = (props) => {
 };
 
 export const Weather = (props) => {
-    const { weather } = props;
+    const { weather, createHistory } = props;
     /* creating a variable isDay & getTime to check if the current weather is day or night, 
     open weather api provide 'd' as day and 'n' as night which am using to check */
     const isDay = weather?.weather[0].icon?.includes('d');
     const getTime = (timeStamp) => {
         return `${new Date(timeStamp * 1000).getHours()} : ${new Date(timeStamp * 1000).getMinutes()}`
     }
+
+    useEffect(()=>{
+        createHistory();
+        //eslint-disable-next-line react-hooks/exhaustive-deps
+    },[weather]);
+    
     return (
         <Container>
             <Stack direction="row">

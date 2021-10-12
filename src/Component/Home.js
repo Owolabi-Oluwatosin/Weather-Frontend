@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import {
     Container,
     Heading,
@@ -57,10 +57,12 @@ export const Home = (props) => {
         const temp =weather?.main?.temp;
         const humidity = weather?.main?.humidity;
         const pressure = weather?.main?.pressure;
+        const name = weather?.name;
         const res = await axiosIntance.post(`/create-history`, {
             temp,
             humidity,
-            pressure
+            pressure,
+            name
         });
 
         if (res.status === 200) {
@@ -73,7 +75,7 @@ export const Home = (props) => {
         } else {
             if (res.status === 422) {
                 toast({
-                    title: `Something went wrong we couldn't weather details to database`,
+                    title: `Something went wrong we couldn't save weather details to database`,
                     status: "error",
                     duration: "5000",
                     isClosable: true
@@ -82,10 +84,6 @@ export const Home = (props) => {
         }
     }
 
-    useEffect(()=>{
-        createHistory();
-    },[weather]);
-
     return (
         <>
             <Container>
@@ -93,7 +91,7 @@ export const Home = (props) => {
                 {
                     //checking if city && waether exist, only then do we want to show weather component else we want to show city component
                     city && weather ?
-                        <Weather weather={weather} city={city} />
+                        <Weather weather={weather} city={city} createHistory={createHistory}/>
                         :
                         <City updateCity={updateCity} fetchWeather={fetchWeather} />
 
