@@ -14,9 +14,6 @@ const Routing = (props) => {
       <Route path="/" exact>
         <Home />
       </Route>
-      <Route path="/weather-history">
-        <History/>
-      </Route>
     </Switch>
   )
 }
