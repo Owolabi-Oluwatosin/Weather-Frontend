@@ -66,7 +66,7 @@ export const Header = (props) => {
                             <Text>Weather App</Text>
                             <Spacer />
                             <Link to="/">Home</Link>
-                            <Link to="/weather-history">History</Link>
+                            //<Link to="/weather-history">History</Link>
                             <Spacer />
                             {colorMode === "light" ? <FaSun cursor="pointer" onClick={toggleColorMode} /> : <FaMoon cursor="pointer" onClick={toggleColorMode} />}
                         </VStack>
@@ -75,7 +75,7 @@ export const Header = (props) => {
                             <Text>Weather App</Text>
                             <Spacer />
                             <Link to="/">Home</Link>
-                            <Link to="/weather-history">History</Link>
+                            //<Link to="/weather-history">History</Link>
                             {colorMode === "light" ? <FaSun cursor="pointer" onClick={toggleColorMode} /> : <FaMoon cursor="pointer" onClick={toggleColorMode} />}
                         </HStack>
                 }
